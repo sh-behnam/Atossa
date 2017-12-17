@@ -1,3 +1,7 @@
-mod parser{
+struct parser {
+
+}
+
+impl parser {
     
 }
