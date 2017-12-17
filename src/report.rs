@@ -1,3 +1,7 @@
-mod report{
+struct report {
+
+}
+
+impl report {
     
 }

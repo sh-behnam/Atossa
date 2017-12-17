@@ -1,3 +1,7 @@
-mod crawler{
+struct crawler {
 
+}
+
+impl crawler {
+    
 }

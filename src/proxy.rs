@@ -1,3 +1,7 @@
-mod proxy{
+struct proxy {
+
+}
+
+impl proxy {
     
 }

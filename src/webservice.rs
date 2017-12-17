@@ -1,3 +1,7 @@
-mod webservice{
+struct webservice {
+
+}
+
+impl webservice {
     
 }
