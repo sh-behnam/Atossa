@@ -1,5 +1,7 @@
-mod http;
+extern crate futures;
+extern crate hyper;
+extern crate tokio_core;
 
 fn main() {
-    println!("Hello, Scanner!");
+    println!("test");
 }
