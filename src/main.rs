@@ -11,7 +11,7 @@ fn main() {
 use http::HTTP;
 //use http::Protocol;
 
-let _request = HTTP::new("httpbin.org".to_string(),80,http::Protocol::HTTP,http::Method::GET,"/ip".to_string());
+let _request = HTTP::new("0x00.ir".to_string(),80,http::Protocol::HTTP,http::Method::GET,"/".to_string());
 _request.do_request();
     println!("test");
 }

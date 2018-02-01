@@ -50,16 +50,22 @@ impl HTTP {
     pub fn do_request(&self){
         let mut core = Core::new().unwrap();
         let client = Client::new(&core.handle());
-        let uri = "http://httpbin.org/ip".parse().unwrap();
-        let work = client.get(uri).and_then(|res| {
+        let uri = format!("{}://{}:{}/{}",match self.protocol {
+                    Protocol::HTTP => "http",
+//                    Protocol::HTTPS => "https",
+                },self.address,self.port,self.request.header.uri).parse().unwrap();
+        let work = match self.request.header.method {
+            Method::GET => client.get(uri).and_then(|res| {
             println!("Response: {}", res.status());
-
             res.body().for_each(|chunk| {
                 io::stdout()
                     .write_all(&chunk)
                     .map_err(From::from)
             })
-        });
+        }),
+//            POST => expr,
+        };
+
         core.run(work).unwrap();
     }
 }
