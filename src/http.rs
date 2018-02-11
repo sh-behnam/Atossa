@@ -5,13 +5,24 @@ use tokio_core::reactor::Core;
 
 #[derive(Debug)]
 pub struct Request {
-    header: Header,
+    header: RequestHeader,
 //    body: String
-} 
+}
+#[derive(Default)]
+struct Response {
+    header: ResponseHeader,
+    body: String,
+}
 #[derive(Debug)]
-pub struct Header{
+pub struct RequestHeader{
     method: Method,
     uri: String,
+//    version: String
+}
+#[derive(Default)]
+pub struct ResponseHeader{
+//    method: Method,
+//    uri: String,
 //    version: String
 }
 #[derive(Debug)]
@@ -40,7 +51,7 @@ impl HTTP {
             port: port,
             protocol: protocol,
             request: Request {
-                header: Header {
+                header: RequestHeader {
                     method: method,
                     uri: uri,
                 },
@@ -55,21 +66,30 @@ impl HTTP {
 //                    Protocol::HTTPS => "https",
                 },self.address,self.port,self.request.header.uri).parse().unwrap();
         let work = match self.request.header.method {
-            Method::GET => client.get(uri).and_then(|res| {
+            Method::GET => {client.get(uri).map(|xxx|{xxx});},
+            Method::GET => {client.get(uri).map(|xxx|{xxx});},
+        };
+/*        work.and_then(|res| {
             println!("Response: {}", res.status());
             res.body().for_each(|chunk| {
                 io::stdout()
                     .write_all(&chunk)
                     .map_err(From::from)
             })
-        }),
-//            POST => expr,
-        };
-
-        core.run(work).unwrap();
+        })*/
+//        core.run(work).unwrap();
     }
 }
-
+/*
+client.get(uri).and_then(|res| {
+            println!("Response: {}", res.status());
+            res.body().for_each(|chunk| {
+                io::stdout()
+                    .write_all(&chunk)
+                    .map_err(From::from)
+            })
+        })
+*/
 /*
 #[derive(Default)]
 pub struct HTTP<'a> {
