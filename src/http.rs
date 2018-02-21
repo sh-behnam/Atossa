@@ -1,12 +1,14 @@
 use std::io::{self, Write};
 use futures::{Future, Stream};
-use hyper::Client;
+use hyper;
 use tokio_core::reactor::Core;
+
+pub use hyper::Method;
 
 #[derive(Debug)]
 pub struct Request {
     header: RequestHeader,
-//    body: String
+    //    body: String
 }
 #[derive(Default)]
 struct Response {
@@ -14,13 +16,13 @@ struct Response {
     body: String,
 }
 #[derive(Debug)]
-pub struct RequestHeader{
+pub struct RequestHeader {
     method: Method,
     uri: String,
-//    version: String
+    //    version: String
 }
 #[derive(Default)]
-pub struct ResponseHeader{
+pub struct ResponseHeader {
 //    method: Method,
 //    uri: String,
 //    version: String
@@ -28,12 +30,7 @@ pub struct ResponseHeader{
 #[derive(Debug)]
 pub enum Protocol {
     HTTP,
-//    HTTPS
-}
-#[derive(Debug)]
-pub enum Method {
-    GET,
-//    POST
+    //    HTTPS
 }
 
 #[derive(Debug)]
@@ -45,7 +42,13 @@ pub struct HTTP {
 }
 
 impl HTTP {
-    pub fn new(address: String, port: u16, protocol: Protocol, method: Method, uri: String) -> HTTP {
+    pub fn new(
+        address: String,
+        port: u16,
+        protocol: Protocol,
+        method: Method,
+        uri: String,
+    ) -> HTTP {
         HTTP {
             address: address,
             port: port,
@@ -58,79 +61,41 @@ impl HTTP {
             },
         }
     }
-    pub fn do_request(&self){
+    pub fn do_request(&self) {
         let mut core = Core::new().unwrap();
-        let client = Client::new(&core.handle());
-        let uri = format!("{}://{}:{}/{}",match self.protocol {
-                    Protocol::HTTP => "http",
-//                    Protocol::HTTPS => "https",
-                },self.address,self.port,self.request.header.uri).parse().unwrap();
-        let work = match self.request.header.method {
-            Method::GET => {client.get(uri).map(|xxx|{xxx});},
-            Method::GET => {client.get(uri).map(|xxx|{xxx});},
+        let client = hyper::Client::new(&core.handle());
+        let uri = format!(
+            "{}://{}:{}/{}",
+            match self.protocol {
+                Protocol::HTTP => "http",
+                //                    Protocol::HTTPS => "https",
+            },
+            self.address,
+            self.port,
+            self.request.header.uri
+        ).parse()
+            .unwrap();
+        let mut req = hyper::Request::new(self.request.header.method.clone(), uri);
+        match self.request.header.method {
+            Method::Get => {}
+            Method::Post => {
+                req.set_body("test");
+            }
+            Method::Options => {}
+            Method::Put => {}
+            Method::Delete => {}
+            Method::Head => {}
+            Method::Trace => {}
+            Method::Connect => {}
+            Method::Patch => {}
+            _ => {}
         };
-/*        work.and_then(|res| {
+        req.headers_mut().set(hyper::header::ContentLength(2u64));
+        let work = client.request(req).and_then(|res| {
             println!("Response: {}", res.status());
-            res.body().for_each(|chunk| {
-                io::stdout()
-                    .write_all(&chunk)
-                    .map_err(From::from)
-            })
-        })*/
-//        core.run(work).unwrap();
-    }
-}
-/*
-client.get(uri).and_then(|res| {
-            println!("Response: {}", res.status());
-            res.body().for_each(|chunk| {
-                io::stdout()
-                    .write_all(&chunk)
-                    .map_err(From::from)
-            })
-        })
-*/
-/*
-#[derive(Default)]
-pub struct HTTP<'a> {
-    Request: Request<'a>,
-    Response: Response<'a>,
-}
-#[derive(Default)]
-struct Request {
-    Header: String,
-    Body: String,
-}
-#[derive(Default)]
-struct Response {
-    Header: String,
-    Body: String,
-}
-
-impl<'a> HTTP<'a> {
-    fn get_request() -> String {
-        String::from("")
-    }
-    fn get_response() -> String {
-        String::from("")
-    }
-    pub fn set_request(){
-        
-    }
-    fn do_request(){
-        let mut core = Core::new().unwrap();
-        let client = Client::new(&core.handle());
-        let uri = "http://httpbin.org/ip".parse().unwrap();
-        let work = client.get(uri).and_then(|res| {
-            println!("Response: {}", res.status());
-
-            res.body().for_each(|chunk| {
-                io::stdout()
-                    .write_all(&chunk)
-                    .map_err(From::from)
-            })
+            res.body()
+                .for_each(|chunk| io::stdout().write_all(&chunk).map_err(From::from))
         });
         core.run(work).unwrap();
     }
 }
-*/
