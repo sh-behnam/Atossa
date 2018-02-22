@@ -7,7 +7,3 @@ authors = ["SajjadPourali <sajjad@securation.com>"]
 futures = "0.1"
 hyper = "0.11"
 tokio-core = "0.1"
-
-[dependencies.rusqlite]
-version = "0.11.0"
-features = ["bundled"]
