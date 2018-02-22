@@ -1,7 +1,7 @@
+use hyper;
+use tokio_core;
 use std::io::{self, Write};
 use futures::{Future, Stream};
-use hyper;
-use tokio_core::reactor::Core;
 
 pub use hyper::Method;
 
@@ -61,8 +61,11 @@ impl HTTP {
             },
         }
     }
+    pub fn set_body(&self){
+
+    }
     pub fn do_request(&self) {
-        let mut core = Core::new().unwrap();
+        let mut core = tokio_core::reactor::Core::new().unwrap();
         let client = hyper::Client::new(&core.handle());
         let uri = format!(
             "{}://{}:{}/{}",
