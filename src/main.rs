@@ -18,7 +18,7 @@ fn main() {
         http::Method::Get,
         "/".to_string(),
     );
-
+    _request.set_body("Ok".to_string());
     _request.do_request();
     println!("test");
 }

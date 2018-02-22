@@ -8,7 +8,7 @@ pub use hyper::Method;
 #[derive(Debug)]
 pub struct Request {
     header: RequestHeader,
-    //    body: String
+//    body: String
 }
 #[derive(Default)]
 struct Response {
@@ -58,11 +58,15 @@ impl HTTP {
                     method: method,
                     uri: uri,
                 },
+//                body: "".into_string(),
             },
         }
     }
-    pub fn set_body(&self){
-
+    pub fn set_body(&self,data: String){
+//        self.request.header.body = data;
+//        self.request
+    }
+    pub fn set_cookie(&self,data: String){
     }
     pub fn do_request(&self) {
         let mut core = tokio_core::reactor::Core::new().unwrap();
