@@ -1,5 +1,6 @@
-extern crate futures;
 extern crate hyper;
+extern crate cookie;
+extern crate futures;
 extern crate tokio_core;
 
 mod http;
@@ -11,7 +12,7 @@ fn main() {
     use http::HTTP;
     //use http::Protocol;
 
-    let _request = HTTP::new(
+    let mut _request = HTTP::new(
         "0x00.ir".to_string(),
         80,
         http::Protocol::HTTP,
@@ -19,6 +20,6 @@ fn main() {
         "/".to_string(),
     );
     _request.set_body("Ok".to_string());
-//    _request.do_request();
+    _request.do_request();
     println!("test");
 }

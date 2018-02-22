@@ -4,11 +4,12 @@ use std::io::{self, Write};
 use futures::{Future, Stream};
 
 pub use hyper::Method;
+use cookie::{Cookie, CookieJar};
 
 #[derive(Debug)]
 pub struct Request {
     header: RequestHeader,
-//    body: String
+    body: String,
 }
 #[derive(Default)]
 struct Response {
@@ -18,6 +19,7 @@ struct Response {
 #[derive(Debug)]
 pub struct RequestHeader {
     method: Method,
+    cookie: String,
     uri: String,
     //    version: String
 }
@@ -56,17 +58,20 @@ impl HTTP {
             request: Request {
                 header: RequestHeader {
                     method: method,
+                    cookie: String::from(""),
                     uri: uri,
                 },
-//                body: "".into_string(),
+                body: String::from(""),
+                //                body: "".into_string(),
             },
         }
     }
-    pub fn set_body(&self,data: String){
-//        self.request.header.body = data;
-//        self.request
+    pub fn set_body(&mut self, data: String) {
+        self.request.body = data;
     }
-    pub fn set_cookie(&self,data: String){
+
+    pub fn set_cookie(&mut self, data: String) {
+        self.request.header.cookie = data; // temp
     }
     pub fn do_request(&self) {
         let mut core = tokio_core::reactor::Core::new().unwrap();
@@ -86,10 +91,12 @@ impl HTTP {
         match self.request.header.method {
             Method::Get => {}
             Method::Post => {
-                req.set_body("test");
+                req.set_body(self.request.body.clone());
             }
             Method::Options => {}
-            Method::Put => {}
+            Method::Put => {
+                req.set_body(self.request.body.clone());
+            }
             Method::Delete => {}
             Method::Head => {}
             Method::Trace => {}
