@@ -21,14 +21,14 @@ fn route(s : &str) -> Result<(), Error> {
 
     match v["route"].to_string().as_str() {
         "\"login\"" => login(),
-        "\"signup\"" => signUp(),
-        _ => notFound(),
+        "\"signup\"" => sign_up(),
+        _ => not_found(),
     }
 
     Ok(())
 }
 
-fn notFound() {
+fn not_found() {
     println!("not found!");
 }
 
@@ -36,6 +36,6 @@ fn login() {
     println!("login!");
 }
 
-fn signUp() {
+fn sign_up() {
     println!("sign-up");
 }
