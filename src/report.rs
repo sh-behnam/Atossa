@@ -1,0 +1,7 @@
+struct report {
+
+}
+
+impl report {
+    
+}

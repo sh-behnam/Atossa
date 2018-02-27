@@ -1,0 +1,7 @@
+struct proxy {
+
+}
+
+impl proxy {
+    
+}

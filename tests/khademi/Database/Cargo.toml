@@ -1,0 +1,10 @@
+[package]
+name = "rusqlite"
+version = "0.1.0"
+authors = ["saeed"]
+
+[dependencies]
+
+[dependencies.rusqlite]
+version = "0.11.0"
+features = ["bundled"]

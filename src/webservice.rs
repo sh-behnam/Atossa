@@ -1,0 +1,7 @@
+struct webservice {
+
+}
+
+impl webservice {
+    
+}
