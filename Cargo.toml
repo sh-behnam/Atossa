@@ -1,6 +1,6 @@
 [package]
-name = "scanner"
-version = "0.1.0"
+name = "atossa"
+version = "0.0.1-dev"
 authors = ["SajjadPourali <sajjad@securation.com>"]
 
 [dependencies]
