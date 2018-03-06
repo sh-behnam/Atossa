@@ -1,0 +1,6 @@
+[package]
+name = "Fuzzer"
+version = "0.1.0"
+authors = ["saeed <saeed.infact@gmail.com>"]
+
+[dependencies]

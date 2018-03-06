@@ -10,7 +10,8 @@ pub struct Resource {
 #[derive(Debug)]
 pub struct Agent {
     depth: i32;
-    resources_list: Vec<Vec<Resource>>;
+    resources: Vec<Resource>;
+    resources_list: Vec<resources>;
 }
 
 impl Agent {
@@ -24,7 +25,7 @@ impl Agent {
 impl Agent {
     pub fn crawl(&self, http: http) {
 
-        let _resources: Vec<ًResource>;
+        let _resources: Vec<resource>;
 
         if(http.is_empty()) {
                 http.response = http.do_request();
@@ -69,7 +70,8 @@ impl Agent {
                 println!("{}", href);
             }
         }
-        self.resources_list.push(_resources);
+        self.resources = _resources;
+        self.resources_list.push(self.resources);
         self.depth++;
     }
 
