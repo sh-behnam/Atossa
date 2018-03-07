@@ -6,15 +6,13 @@ use controller::login_check;
 use serde_json::{Value, Error};
 
 pub fn route(s : &str) -> Result<(), Error> {
-    let v: Value = serde_json::from_str(s)?;
+    let json: Value = serde_json::from_str(s)?;
 
     //check the route value in JSON structure
-    match v["route"].to_string().as_str() 
+    match json["route"].to_string().as_str() 
     {
         "\"login\"" => {
-            let _username = v["action"]["user"].to_string() ;
-            let _password = v["action"]["password"].to_string();
-            login_check(username,password);
+            controller_login_check(&json);
         },
         "\"signup\"" => sign_up(),
         _ => not_found(),
@@ -33,8 +31,6 @@ fn not_found() {
 fn sign_up() {
     println!("sign-up");
 }
-
-
 
 
 
