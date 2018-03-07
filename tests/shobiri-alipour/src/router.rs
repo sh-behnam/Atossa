@@ -1,7 +1,7 @@
 extern crate serde_json;
 
-mod controll;
-use controll::controller_login_check;
+mod controller;
+use controller::login_check;
 
 use serde_json::{Value, Error};
 
@@ -12,9 +12,9 @@ pub fn route(s : &str) -> Result<(), Error> {
     match v["route"].to_string().as_str() 
     {
         "\"login\"" => {
-            let username = v["action"]["user"].to_string() ;
-            let password = v["action"]["password"].to_string();
-            controller_login_check(username,password);
+            let _username = v["action"]["user"].to_string() ;
+            let _password = v["action"]["password"].to_string();
+            login_check(username,password);
         },
         "\"signup\"" => sign_up(),
         _ => not_found(),

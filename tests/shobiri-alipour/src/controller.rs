@@ -5,7 +5,7 @@ mod Database;
 use Database::Query;
 use Database::User;
 
-pub fn controller_login_check(user : String,pass : String) 
+pub fn login_check(user : String,pass : String) 
 {
     println!("the username is {} and ",user);
     println!("the password is {} and ",pass);
