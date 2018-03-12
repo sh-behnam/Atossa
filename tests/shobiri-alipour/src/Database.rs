@@ -1,6 +1,6 @@
 extern crate rusqlite;
 
-use rusqlite::Connection;
+use self::rusqlite::Connection;
 
 /* Table Structure */
 #[derive(Debug)]

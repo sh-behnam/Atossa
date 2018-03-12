@@ -1,8 +1,9 @@
-extern crate serde_json;
 
+mod router;
+mod controller;
+mod Database;
 
- mod router;
- use router::route;
+use router::route;
 
 
 
@@ -10,8 +11,8 @@ fn main() {
        let input = r#"{
                     "route": "login",
                     "action":{
-                        "user":"U",
-                        "password":"P"
+                        "user":"admin",
+                        "password":"admin"
                     }
                   }"#;
 

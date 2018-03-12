@@ -1,11 +1,13 @@
 extern crate rusqlite;
-use rusqlite::Connection;
+extern crate serde_json;
 
-mod Database;
+use self::serde_json::{Value, Error};
+
 use Database::Query;
 use Database::User;
+use self::rusqlite::Connection;
 
-pub fn controller_login_check(JSON : &Value) -> bool
+pub fn login_check(JSON : &Value) -> bool
 {
     let  mut _username = JSON["action"]["user"].to_string() ; //pars JSON for username
     _username = _username[1.._username.len()-1].to_string();// delet " " form username to compare
@@ -16,7 +18,7 @@ pub fn controller_login_check(JSON : &Value) -> bool
     println!("the username is {} and ",_username);
     println!("the password is {} and ",_password);
 
-
+    
     let path = "./DEV_DB_TEST";
     let conn = Connection::open(path).unwrap();
     let query = Query::new();
